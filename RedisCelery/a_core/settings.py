@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     # My apps
     'a_home',
     'a_users',
-    
+    'a_messageboard',
+
     # Third party
     'django_browser_reload',
 ]
@@ -147,7 +148,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [ BASE_DIR / 'static' ]
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media' 
+MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
