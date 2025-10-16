@@ -19,6 +19,9 @@ function App() {
           <Link to="/create" className="navbar_link">
             Share
           </Link>
+          <Link to="#" className="navbar_link">
+            Popular
+          </Link>
         </div>
       </nav>
 
