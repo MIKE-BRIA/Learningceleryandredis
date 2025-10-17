@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import email
 from pathlib import Path
+# from tkinter import E
+from unittest.mock import DEFAULT
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -53,6 +56,8 @@ INSTALLED_APPS = [
 
     # Third party
     'django_browser_reload',
+    'django_celery_results',
+    'django_celery_beat',
 ]
 
 SITE_ID = 1
@@ -154,6 +159,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-ACCOUNT_LOGIN_METHODS = {'email', 'username'}
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True  # <-- Correct name
+EMAIL_HOST_USER = 'michaelbrian466@gmail.com'
+EMAIL_HOST_PASSWORD = 'gattkszvjhmlxlym'  # App password
+DEFAULT_FROM_EMAIL = 'RedisCelery <michaelbrian466@gmail.com>'
+ACCOUNT_EMAIL_SUBJECT_PREFIX = ""
+
+ACCOUNT_EMAIL_REQUIRED = True
+
+
+ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
+
+
+#configure celery and redis
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_EXTENDED = True
