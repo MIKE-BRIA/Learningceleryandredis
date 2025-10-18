@@ -3,38 +3,103 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Newsletter Subscription</title>
+    <title>Robotics Monthly Digest</title>
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
   </head>
-  <body class="bg-gray-100">
-    <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
-      <h1 class="text-2xl font-bold mb-4">Subscribe to Our Newsletter</h1>
-      <form method="POST" class="space-y-4">
-        {% csrf_token %}
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700"
-            >Email Address</label
+  <body class="bg-gray-100 font-sans">
+    <div
+      class="max-w-3xl mx-auto p-8 bg-white shadow-md rounded-lg mt-10 border border-gray-200"
+    >
+      <!-- Header -->
+      <div class="text-center border-b border-gray-300 pb-4 mb-6">
+        <h1 class="text-3xl font-extrabold text-gray-800">
+          🤖 Robotics Monthly Digest
+        </h1>
+        <p class="text-gray-500 mt-1">
+          Insights • Innovation • AI & Automation
+        </p>
+      </div>
+
+      <!-- Featured Article -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold text-blue-600 mb-2">
+          🌟 Featured Story: {{ featured_title }}
+        </h2>
+        <p class="text-gray-700 leading-relaxed mb-3">{{ featured_excerpt }}</p>
+        <a
+          href="{{ featured_link }}"
+          class="text-blue-500 hover:underline font-medium"
+          >Read the full article →</a
+        >
+      </section>
+
+      <!-- Quick News Section -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold text-blue-600 mb-3">
+          📰 This Month in Robotics
+        </h2>
+        <ul class="space-y-3">
+          {% for news in news_items %}
+          <li class="border-b border-gray-200 pb-2">
+            <a
+              href="{{ news.link }}"
+              class="text-gray-800 font-medium hover:text-blue-600"
+            >
+              {{ news.title }}
+            </a>
+            <p class="text-sm text-gray-500">{{ news.summary }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <!-- Tech Tip Section -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold text-blue-600 mb-2">
+          🧠 Tech Tip of the Month
+        </h2>
+        <p class="text-gray-700">{{ tech_tip }}</p>
+      </section>
+
+      <!-- Upcoming Events -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold text-blue-600 mb-2">
+          📅 Upcoming Events
+        </h2>
+        <ul class="list-disc list-inside text-gray-700">
+          {% for event in events %}
+          <li>
+            {{ event.date }} —
+            <span class="font-medium">{{ event.title }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <!-- Footer -->
+      <footer
+        class="text-center text-gray-500 text-sm border-t border-gray-300 pt-4"
+      >
+        <p>
+          You're receiving this email because you subscribed to
+          <strong>Robotics Monthly Digest</strong>.
+        </p>
+        <p class="mt-2">
+          <a href="{{ unsubscribe_link }}" class="text-blue-500 hover:underline"
+            >Unsubscribe</a
           >
-          <input
-            type="email"
-            name="email"
-            id="email"
-            required
-            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          />
-        </div>
-        <div>
-          <button
-            type="submit"
-            class="w-full bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          |
+          <a href="{{ preferences_link }}" class="text-blue-500 hover:underline"
+            >Manage Preferences</a
           >
-            Subscribe
-          </button>
-        </div>
-      </form>
+        </p>
+        <p class="mt-4 text-gray-400">
+          &copy; {{ current_year }} Robotics Digest. All rights reserved.
+        </p>
+      </footer>
     </div>
   </body>
 </html>

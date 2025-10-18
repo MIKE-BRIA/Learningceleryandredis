@@ -6,6 +6,7 @@ from .forms import MessageCreateForm
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from .task import send_email_task
+from django.contrib.auth.decorators import user_passes_test
 
 
 # Create your views here.
@@ -70,3 +71,12 @@ def send_email(message):
         subject = f'New message from {message.author.profile.name}'
         body = f'{message.author.profile.name}: {message.body}\n\nVisit the message board to reply.'
         send_email_task.delay(subject, body, subscriber.email)
+
+
+def is_staff(user):
+    return user.is_staff
+
+
+@user_passes_test(is_staff)
+def newsletter(request):
+    return render(request, 'a_messageboard/newsletter.html')
